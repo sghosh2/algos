@@ -20,6 +20,8 @@ package com.algos;
  *  
  * S [i, j[ represents a station j on line i.
  * 
+ * 
+ * 
  * Now minimize the time
  */
 public class OptimizeAssemblyLine {
