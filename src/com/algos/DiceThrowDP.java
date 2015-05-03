@@ -23,19 +23,39 @@ public class DiceThrowDP {
 	}
 	
 	private static int diceThrow(int n, int m, int x) {
-		int counter [] = new int[x+1];
+		int counter [][] = new int[n][x+1];
 		
-		for (int i = 1; i <= n; i++) {
+		int lastupdatedindex = m;
+		
+		for(int j = 1; j <= m; j++) {
+			if(j<=x)
+				counter[0][j] = 1;
+		}
+		
+		for (int i = 1; i < n; i++) {
 			for(int j = 1; j <= m; j++) {
 				int curentNum = j;
-				for(int k = 0; k < x - i; k++) {
-					counter [k + curentNum] = counter[k] + counter [k + curentNum];
-				}
+				for(int k = 1; k <= lastupdatedindex; k++) {
+					if(k + curentNum <= x) {
+						if(counter[i][k + curentNum] == 0) {
+							counter[i][k + curentNum] = counter[i-1][k + curentNum];
+						}
+						
+					//upadte the reacability    
+					//(current number reachability) = (current number reachability) + (current number reachability till last iteration)
+					//                                + (previous number reachability)
+						// 
+						counter[i][k + curentNum] = counter[i][k + curentNum] + counter[i-1][k];
+					}
+					
+					}
+				lastupdatedindex = lastupdatedindex + curentNum;
+
 			}
 			
 		}
 		
-		return counter[x];
+		return counter[n-1][x];
 	}
 
 }
