@@ -6,13 +6,16 @@ package com.algos;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -47,11 +50,22 @@ public class WordBreak {
 		String input = "ilikesamsung";
 		
 		
+		System.out.println( -1 << 29);
+		System.out.println( 0 << 29);
+		System.out.println( 3 << 3);
+		System.out.println( 2 << 29);
+		System.out.println( 3 << 29);
 		
+		AtomicInteger ctl = new AtomicInteger(ctlOf( -1 << 29, 0));
 		
+		int CAPACITY   = (1 << 29) - 1;
 		
+		System.out.println(ctl.get());
+		System.out.println(ctl.get() & ~CAPACITY);
+		ctl.incrementAndGet();
+		System.out.println(ctl.get() & CAPACITY);
 	} 
-	
+	static int ctlOf(int rs, int wc) { return rs | wc; }
 /*	private static List<String> StringBreak(String d, String in) {
 		
 		
